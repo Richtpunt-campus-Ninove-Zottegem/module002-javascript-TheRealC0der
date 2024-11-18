@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boodschappenlijst</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+</style>
+</head>
+
+<body>
+    <h2>Boodschappenlijst</h2>
+    <input type="text" id="item" placeholder="Voer een item in">
+    <button onclick="voegItemToe()">Toevoegen</button>
+    <button onclick="verwijderLaatsteItem()">Verwijderen</button>
+
+    <ul id="boodschappenlijst"></ul>
+
+    <script>
+        // Functie voor item toe te voegen
+    function voegItemToe() {
+    // Neemt de item waarde van de gebruiker
+    const itemInput = document.getElementById('item');
+    const itemValue = itemInput.value.trim();
+
+    // Statement waarbij men kijkt of de tekst wel geldig is
+    if (itemValue !== '') {
+        //Maakt een <li></li> aan
+        const li = document.createElement('li');
+        li.textContent = itemValue;
+
+        // Voegt het lijst item toe aan de boodschappenlijst
+        const boodschappenlijst = document.getElementById('boodschappenlijst');
+        boodschappenlijst.appendChild(li);
+
+        // Lege waarde
+        itemInput.value = '';
+    } else {
+        alert('je hebt niets ingegeven.');
+    }
+}
+
+// Verwijdert het onderste item als men op de de verwijderLaatsteItem knop duwt
+function verwijderLaatsteItem() {
+    const boodschappenlijst = document.getElementById('boodschappenlijst');
+    
+    // Statement waarbij men gaat kijken naar de inhoud van de lijst wel inhoud heeft zo ja dan verwijdert hij dit
+    if (boodschappenlijst.lastChild) {
+        // Zo niet dan geeft hij een alert naar de gebruiker dat de lijst al leeg is.
+        boodschappenlijst.removeChild(boodschappenlijst.lastChild);
+    } else {
+        alert('De lijst is al leeg.');
+    }
+}
+
+
+    </script>
+</body>
+</html>
