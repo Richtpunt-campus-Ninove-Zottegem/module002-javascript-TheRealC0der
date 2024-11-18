@@ -10,56 +10,59 @@
     <p>Raad het geheime getal tussen 1 en 100. Je hebt maximaal 10 pogingen!</p>
 
     <input type="number" id="guess" placeholder="Voer je gok in">
-    <button onclick="startSpel()">Gok!</button>
+    <button id="gokButton" onclick="startspel()">Gok!</button>
 
     <p id="resultaat"></p>
     <p id="pogingen"></p>
 
     <script>
         // Willekeurig getal tussen 1 en 100
-        var number = Math.floor(Math.random() * 100)+ 1;
+        var number = Math.floor(Math.random() * 100) + 1;
         var attempts = 10; // Aantal pogingen
+        var button = document.getElementById("gokButton");
 
-        function startSpel() {
-    // Haal de ingevoerde waarde op
-    var guess = parseInt(document.getElementById("guess").value);
-    var output = document.getElementById("resultaat");
-    var attemptsOutput = document.getElementById("pogingen");
+        function startspel() {
+            // Haal de ingevoerde waarde op
+            var guess = parseInt(document.getElementById("guess").value);
+            var output = document.getElementById("resultaat");
+            var attemptsoutput = document.getElementById("pogingen");
 
-    // Controleer of de ingevoerde waarde geldig is
-    if (isNaN(guess) || guess < 1 || guess > 100) {
-        output.textContent = "Voer een geldig getal in tussen 1 en 100.";
-        return;
-    }
+            // Controleer of de ingevoerde waarde geldig is
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                output.textContent = "Voer een geldig getal in tussen 1 en 100.";
+                return;
+            }
 
-    // Verlaag het aantal pogingen en update de weergave
-    attempts--;
-    attemptsOutput.textContent = "Pogingen over: " + attempts;
+            // Verlaag het aantal pogingen en update de weergave
+            attempts--;
+            attemptsoutput.textContent = "Pogingen over: " + attempts;
 
-    // Controleer of het geraden getal correct is
-    if (guess === number) {
-        output.innerHTML = "Gefeliciteerd! Je hebt het juiste getal geraden!";
-        setTimeout(resetSpel, 2000); // Wacht 2 seconden en reset
-        return;
-    } else {
-        output.innerHTML = "Niet correct! Probeer opnieuw.";
-    }
+            // Controleer of het geraden getal correct is
+            if (guess === number) {
+                output.innerHTML = "Gefeliciteerd! Je hebt het juiste getal geraden!";
+                button.disabled = true; // Deactiveer de knop na winnen
+                setTimeout(resetspel, 2000); // Wacht 2 seconden en reset
+                return;
+            } else {
+                output.innerHTML = "Niet correct! Probeer opnieuw.";
+            }
 
-    // Controleer of het aantal pogingen op is
-    if (attempts === 0) {
-        output.innerHTML = "Helaas, geen pogingen meer over. Het juiste getal was " + number + ".";
-        setTimeout(resetSpel, 2000); // Wacht 2 seconden en reset
-    
-    }
-}
+            // Controleer of het aantal pogingen op is
+            if (attempts === 0) {
+                output.innerHTML = "Helaas, geen pogingen meer over. Het juiste getal was " + number + ".";
+                button.disabled = true; // Deactiveer de knop na 10 pogingen
+                setTimeout(resetspel, 2000); // Wacht 2 seconden en reset
+            }
+        }
 
-function resetSpel() {
-    number = Math.floor(Math.random() * 100) + 1; // Genereer een nieuw getal
-    attempts = 10; // Reset het aantal pogingen
-    document.getElementById("resultaat").innerHTML = ""; // Wis eerdere resultaten
-    document.getElementById("pogingen").innerHTML = "Pogingen over: " + attempts; // Update het pogingen-teller
-    document.getElementById("guess").value = ""; // Wis de invoer
-}
+        function resetspel() {
+            number = Math.floor(Math.random() * 100) + 1; // Genereer een nieuw getal
+            attempts = 10; // Reset het aantal pogingen
+            document.getElementById("resultaat").innerHTML = ""; // Wis eerdere resultaten
+            document.getElementById("pogingen").innerHTML = "Pogingen over: " + attempts; // Update het pogingen-teller
+            document.getElementById("guess").value = ""; // Wis de invoer
+            button.disabled = false; // Activeer de knop weer
+        }
     </script>
 </body>
 </html>
